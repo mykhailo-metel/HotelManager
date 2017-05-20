@@ -49,5 +49,12 @@ public class Test {
         DAOHotel daoHotel = new DAOHotel();
         daoHotel.truncateDB();
         daoHotel.writeHotels(hotels);
+        System.out.println("######################################");
+        List<Hotel> newHotelsList = daoHotel.readHotels();
+        for (Hotel hotel : newHotelsList) {
+            System.out.println(hotel);
+        }
+
+
     }
 }
