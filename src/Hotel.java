@@ -50,6 +50,9 @@ public class Hotel {
         this.rooms.add(room);
     }
 
+    public void setRooms(List<Room> rooms) {
+        this.rooms = rooms;
+    }
     //REMOVE ROOM
     public void removeRoom(Room room){
         rooms.remove(room);

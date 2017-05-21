@@ -7,15 +7,15 @@ public class Booking {
 
 
     private long id;
-    private Room room;
+    private int roomId;
     private User user;
     private Date dateBegin;
     private Date dateEnd;
-    private Hotel hotel;
+    private int hotelId;
 
-    public Booking(long id, User user, Date dateBegin, Date dateEnd, Hotel hotel, Room room) throws IllegalArgumentException{
+    public Booking(long id, User user, Date dateBegin, Date dateEnd, int hotelId, int roomId) throws IllegalArgumentException{
 
-        if(user==null||dateBegin==null||dateEnd==null||hotel==null||room==null){
+        if(user==null||dateBegin==null||dateEnd==null){
             throw new IllegalArgumentException("No null field allowed");
         }
 
@@ -23,16 +23,16 @@ public class Booking {
         this.user = user;
         this.dateBegin = dateBegin;
         this.dateEnd = dateEnd;
-        this.hotel = hotel;
-        this.room = room;
+        this.hotelId = hotelId;
+        this.roomId = roomId;
     }
 
     public long getId() {
         return id;
     }
 
-    public Room getRoom() {
-        return room;
+    public int getRoom() {
+        return roomId;
     }
 
     public User getUser() {
@@ -47,8 +47,8 @@ public class Booking {
         return dateEnd;
     }
 
-    public Hotel getHotel() {
-        return hotel;
+    public int getHotel() {
+        return hotelId;
     }
 
     @Override
@@ -58,31 +58,28 @@ public class Booking {
 
         Booking booking = (Booking) o;
 
-        if (getId() != booking.getId()) return false;
-        if (!getRoom().equals(booking.getRoom())) return false;
+        if (roomId != booking.roomId) return false;
+        if (hotelId != booking.hotelId) return false;
         if (!getUser().equals(booking.getUser())) return false;
         if (!getDateBegin().equals(booking.getDateBegin())) return false;
-        if (!getDateEnd().equals(booking.getDateEnd())) return false;
-        return getHotel().equals(booking.getHotel());
+        return getDateEnd().equals(booking.getDateEnd());
     }
 
     @Override
     public int hashCode() {
-        int result = (int) (getId() ^ (getId() >>> 32));
-        result = 31 * result + getRoom().hashCode();
+        int result = roomId;
         result = 31 * result + getUser().hashCode();
         result = 31 * result + getDateBegin().hashCode();
         result = 31 * result + getDateEnd().hashCode();
-        result = 31 * result + getHotel().hashCode();
+        result = 31 * result + hotelId;
         return result;
     }
 
     @Override
     public String toString() {
         return  "Бронирование Id - " + getId() + " пользователь " + getUser().getLogin() +
-                "\nОтель: " + getHotel().getName() +
-                " Комната: " + getRoom().getId() +
-                " Город: " + getHotel().getCity() +
+                "\nОтель: " + Integer.toString(getHotel()) +
+                " Комната: " + Integer.toString(getRoom()) +
                 "\nДата начала: " + getDateBegin() +
                 "\nДата конца: " + getDateEnd() + "\n";
     }
