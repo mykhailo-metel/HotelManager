@@ -26,6 +26,8 @@ public class Hotel {
         return res;
     }
 
+
+
     public int getId(){
         return id;
     }
@@ -119,13 +121,9 @@ public class Hotel {
      */
     public int getMaxRoomId() {
         int maxId = 0;
-        if (rooms != null || rooms.size()!=0) return 0;
-
-        for (int i = 0; i < rooms.size(); i++) {
-            if (maxId < rooms.get(i).getId()) {
-                maxId = rooms.get(i).getId();
-                break;
-            }
+        if(rooms.isEmpty()) return maxId;
+        for (Room room : rooms) {
+            if(room.getId()>maxId) maxId=room.getId();
         }
         return maxId;
     }

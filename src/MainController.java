@@ -11,7 +11,7 @@ public class MainController {
 
     UserController userController = new UserController();
     HotelController hotelController = new HotelController();
-    BookingController bookingController = new BookingController();
+    BookingController bookingController = new BookingController(null);
 
     public void createHotel(){}
     public void deleteHotel(){}

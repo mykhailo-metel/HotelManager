@@ -46,7 +46,7 @@ public class DAOHotel {
             roomHotelMapFile.createNewFile();
             writer=new BufferedWriter(new FileWriter(hotelsFile));
             for (String hotelString : hotelsStringList) {
-                System.out.println(hotelString);
+                //System.out.println(hotelString);
                 writer.write(hotelString);
             }
             writer.close();
@@ -82,6 +82,21 @@ public class DAOHotel {
         if(hotelsFile.exists()) hotelsFile.delete();
         if(roomsFile.exists()) roomsFile.delete();
         if(roomHotelMapFile.exists()) roomHotelMapFile.delete();
+        createDBStructure();
+    }
+
+    public void createDBStructure(){
+        File hotelsFile = new File(HOTEL_FILE_PATH);
+        File roomsFile = new File(ROOM_FILE_PATH);
+        File roomHotelMapFile = new File(ROOM_HOTEL_MAP);
+        try{
+            hotelsFile.createNewFile();
+            roomsFile.createNewFile();
+            roomHotelMapFile.createNewFile();
+        } catch(IOException ex){
+            System.out.println("Can't initialize DB.");
+        }
+
     }
 
     /**
@@ -134,15 +149,22 @@ public class DAOHotel {
             reader.close();
             //ADD ROOMS TO HOTELS
             for (int[] hotelRoomPair : hotelRoomPairs) {
-                Hotel hotel = hotels.stream()
-                        .filter(x -> x.getId()==hotelRoomPair[0])
-                        .findFirst()
-                        .get();
-                Room room = rooms.stream()
-                        .filter(x -> x.getId()==hotelRoomPair[1])
-                        .findFirst()
-                        .get();
-                hotel.addRoom(room);
+                Hotel hotel;
+                Room room;
+                try {
+                    hotel = hotels.stream()
+                            .filter(x -> x.getId() == hotelRoomPair[0])
+                            .findFirst()
+                            .get();
+                    room = rooms.stream()
+                            .filter(x -> x.getId() == hotelRoomPair[1])
+                            .findFirst()
+                            .get();
+                    hotel.addRoom(room);
+                } catch (Exception ex){
+                    System.out.println("WARNING!! Inconsistent rooms and hotels tables!!! Check the DB!");
+                }
+
             }
         } catch (IOException ex){
             throw new Error("Can't read DB!");
