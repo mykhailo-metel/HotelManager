@@ -18,6 +18,16 @@ public class HotelController {
         this.hotelList = daoHotel.readHotels();
     }
 
+
+    private boolean checkHotelIfExists(Hotel tempHotel){
+        for (Hotel hotel : hotelList) {
+            if(hotel.equals(tempHotel)){
+                return true;
+            }
+        }
+        return false;
+    }
+
     /**
      * Creates a hotel and adds it to a list of hotels.
      * @param city City of the hotel's location
@@ -25,12 +35,36 @@ public class HotelController {
      */
     public void createHotel(String city, String name){
         Hotel tempHotel = new Hotel(maxId.incrementAndGet(),city,name);
-        for (Hotel hotel : hotelList) {
-            if(hotel.equals(tempHotel)){
-                return;
-            }
+        if(checkHotelIfExists(tempHotel)){
+            System.out.println("The hotel already exists.");
+            return;
         }
         hotelList.add(tempHotel);
+    }
+
+    /**
+     * Adds an existing hotel. Must be used only for reading from DB.
+     * @param hotelToAdd hotel to be add.
+     */
+    public void addHotel(Hotel hotelToAdd){
+        if(checkHotelIfExists(hotelToAdd)){
+            System.out.println("The hotel already exists.");
+            return;
+        }
+        if(hotelToAdd.getId()>maxId.get()){
+            maxId.set(hotelToAdd.getId());
+        }
+        hotelList.add(hotelToAdd);
+    }
+
+    /**
+     * Adds an existing hotels. Must be used only for reading from DB.
+     * @param hotelsToAdd list of hotels to be add.
+     */
+    public void addHotels(List<Hotel> hotelsToAdd){
+        for (Hotel hotel : hotelsToAdd) {
+            addHotel(hotel);
+        }
     }
 
     /**
