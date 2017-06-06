@@ -1,7 +1,7 @@
-/**
- * Created by Vlad on 17.05.2017.
- */
-public class User {
+package models;
+
+
+public class User implements BaseModel {
     private int id;
     private String name;
     private String surname;
@@ -16,8 +16,18 @@ public class User {
         this.userRights = userRights;
     }
 
+    @Override
     public int getId() {
         return id;
+    }
+
+    @Override
+    public String StringForWritingToDB() {
+        return Integer.toString(getId()) + "\t"
+                + getName() + "\t"
+                + getSurname() + "\t"
+                + getLogin() + "\t"
+                + getUserRights() + "\n";
     }
 
     public String getName() {

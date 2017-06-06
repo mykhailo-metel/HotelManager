@@ -1,12 +1,13 @@
+package DAO;
+
+import models.Hotel;
+import models.Room;
+
 import java.math.BigDecimal;
 import java.util.*;
 import java.io.*;
-import java.util.function.Function;
 
-/**
- * Created by Vlad on 17.05.2017.
- */
-public class DAOHotel {
+public class DAOHotelOld {
     private String CURRENT_DIR = System.getProperty("user.dir")+"/db/";
     private String HOTEL_FILE_PATH = CURRENT_DIR+"Hotel.tsv";
     private String ROOM_FILE_PATH = CURRENT_DIR+"Room.tsv";

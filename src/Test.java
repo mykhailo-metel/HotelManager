@@ -1,5 +1,7 @@
+import DAO.DAOHotel;
+import models.Hotel;
+
 import java.math.BigDecimal;
-import java.util.ArrayList;
 import java.util.List;
 
 /**

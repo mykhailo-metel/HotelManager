@@ -1,9 +1,10 @@
+import DAO.DAOUser;
+import models.Hotel;
+import models.User;
+
 import java.util.List;
 import java.util.concurrent.atomic.AtomicInteger;
 
-/**
- * Created by Vlad on 17.05.2017.
- */
 public class UserController {
 
     private List<User> userlList;
@@ -11,7 +12,7 @@ public class UserController {
     private AtomicInteger maxId;
 
     public UserController() {
-        this.userlList = daoUser.readUsers();
+        this.userlList = daoUser.loadFromDB();
     }
 
     public void createUser(int id, String name, String surname, String login, String userRights){

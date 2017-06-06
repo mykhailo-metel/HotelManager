@@ -1,9 +1,14 @@
 package userInterfaceClasses;
 
+import models.Hotel;
+import models.Room;
+import models.User;
+
 public class Main {
 
-    private MainLogin mainLogin;
-    private MainRegister mainRegister;
+    private DAO.DaoAbstract<User> userDAO = new DAO.DAOUser("users.tsv");
+    private DAO.DaoAbstract<Hotel> hotelDAO = new DAO.DAOHotel("hotel.tsv");
+    private DAO.DaoAbstract<Room> roomDAO = new DAO.DAORoom("hotel.tsv");
 
     public void run(){
         byte choise;
@@ -16,10 +21,10 @@ public class Main {
             choise = Requester.requestChoise();
             switch (choise) {
                 case 1:
-                    mainLogin.run();
+                    //mainLogin.run();
                     break;
                 case 2:
-                    mainRegister.run();
+                    //mainRegister.run();
                     break;
             }
         } while (choise != 0);

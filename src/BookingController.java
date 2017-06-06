@@ -1,11 +1,13 @@
+import DAO.DAOBooking;
+import models.Booking;
+import models.Hotel;
+import models.Room;
+import models.User;
+
 import java.util.Date;
 import java.util.List;
-import java.util.concurrent.atomic.AtomicInteger;
 import java.util.concurrent.atomic.AtomicLong;
 
-/**
- * Created by Vlad on 17.05.2017.
- */
 public class BookingController {
 
     List<Booking> bookings;

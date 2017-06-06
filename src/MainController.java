@@ -1,3 +1,6 @@
+import models.Booking;
+import models.Hotel;
+
 import java.util.List;
 
 /**

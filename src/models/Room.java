@@ -1,38 +1,27 @@
+package models;
+
 import java.math.BigDecimal;
 
-/**
- * Created by Vlad on 17.05.2017.
- */
-public class Room {
 
+public class Room implements BaseModel {
     private int id;
+    private int hotelID;
     private byte person;
     private BigDecimal price;
 
-    public Room(int id,byte person, BigDecimal price) {
+    public Room(int id,int hotelId, byte person, BigDecimal price) {
         this.id=id;
+        this.hotelID = hotelId;
         this.person = person;
         this.price = price;
     }
 
-    public byte getPerson() {
-        return person;
-    }
-
-    public void setPerson(byte person) {
-        this.person = person;
-    }
-
-    public BigDecimal getPrice() {
-        return price;
-    }
-
-    public void setPrice(BigDecimal price) {
-        this.price = price;
-    }
-
-    public int getId(){
-        return id;
+    @Override
+    public String StringForWritingToDB() {
+        return Integer.toString(this.getId()) + "\t" +
+                Integer.toString(this.gethotelId()) + "\t" +
+                Byte.toString(this.getPerson()) + "\t" +
+                this.getPrice().toString()+"\n";
     }
 
     @Override
@@ -62,4 +51,27 @@ public class Room {
         return result;
     }
 
+    public byte getPerson() {
+        return person;
+    }
+
+    public void setPerson(byte person) {
+        this.person = person;
+    }
+
+    public BigDecimal getPrice() {
+        return price;
+    }
+
+    public void setPrice(BigDecimal price) {
+        this.price = price;
+    }
+
+    public int getId(){
+        return id;
+    }
+
+    public int gethotelId() {
+        return hotelID;
+    }
 }
