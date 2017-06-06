@@ -5,17 +5,30 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 
 public class Booking implements BaseModel {
+    private static int maxID = 0;
     private int id;
     private int roomId;
     private int userId;
     private Date dateBegin;
     private Date dateEnd;
 
+    public Booking(int roomId, int userId, Date dateBegin, Date dateEnd) throws IllegalArgumentException{
+        if(dateBegin == null || dateEnd == null){
+            throw new IllegalArgumentException("No null field (in date) allowed");
+        }
+        maxID++;
+        this.id = maxID;
+        this.roomId = roomId;
+        this.userId = userId;
+        this.dateBegin = dateBegin;
+        this.dateEnd = dateEnd;
+    }
+
     public Booking(int id, int roomId, int userId, Date dateBegin, Date dateEnd) throws IllegalArgumentException{
         if(dateBegin == null || dateEnd == null){
             throw new IllegalArgumentException("No null field (in date) allowed");
         }
-        this.id=id;
+        this.id = id;
         this.roomId = roomId;
         this.userId = userId;
         this.dateBegin = dateBegin;

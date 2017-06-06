@@ -5,6 +5,7 @@ import java.util.List;
 
 
 public class DAOHotel extends DaoAbstract {
+
     public DAOHotel(String path){
         super(path);
     }
@@ -27,7 +28,7 @@ public class DAOHotel extends DaoAbstract {
             id = Integer.parseInt(result.get(0));
             city = result.get(1);
             name = result.get(2);
-            tempHotel = new Hotel(id,city,name);
+            tempHotel = new Hotel(name, city);
         }catch (Exception ex){
             System.out.println("Unable to parse hotel.");
         }

@@ -55,4 +55,9 @@ public class DAOUser extends DaoAbstract {
         }
         return null;
     }
+
+    public User findByLogin(String login) {
+        if (login == null || login.length() == 0) return null;
+        return (User) list.stream().filter(e->login.equals(((User)e).getLogin())).findFirst().orElse(null);
+    }
 }

@@ -12,7 +12,7 @@ public abstract  class DaoAbstract<E extends BaseModel> implements DAO<E> {
     protected String FILE_PATH;
     protected List<E> list = new ArrayList<>(0);
 
-    DaoAbstract(String filename){
+    public DaoAbstract(String filename){
         FILE_PATH = CURRENT_DIR + filename;
         list = loadFromDB();
     }

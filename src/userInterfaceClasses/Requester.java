@@ -42,4 +42,16 @@ public class Requester {
         return name;
     }
 
+    public static int requestNumber() {
+        Scanner scanner = new Scanner(System.in);
+        String string;
+        try{string = scanner.next();
+            if(string == null || string.length() == 0) {
+                throw new RuntimeException("Некорректное значение.");
+            }
+            return Integer.parseInt(string);
+        } catch (RuntimeException e){
+            throw new RuntimeException("Ошибка ввода числа.");
+        }
+    }
 }

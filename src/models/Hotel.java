@@ -1,14 +1,34 @@
 package models;
 
 public class Hotel implements BaseModel {
+    private static int maxID = 0;
     private int id;
     private String city;
     private String name;
 
-    public Hotel(int id, String city, String name) {
-        this.id = id;
-        this.city = city;
+
+    /**
+     * Constructor to be used during runtime
+     * @param name  - hotelname
+     * @param city  - hotelcity
+     */
+    public Hotel(String name, String city) {
+        maxID++;
+        this.id = maxID;
         this.name = name;
+        this.city = city;
+    }
+
+    /**
+     * Constructor to be used when parsing the hotel
+     * @param id - read id from string (in file)
+     * @param name - hotelname
+     * @param city - hotelcity
+     */
+    public Hotel(int id, String name, String city) {
+        this.id = id;
+        this.name = name;
+        this.city = city;
     }
 
     @Override

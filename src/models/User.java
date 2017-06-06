@@ -9,9 +9,32 @@ public class User implements BaseModel {
     private String login;
     private String userRights;
 
-    public User(int id, String name, String surname, String login, String userRights) {
+    /**
+     * Constructor for generating users during runtime
+     * @param name
+     * @param surname
+     * @param login
+     * @param userRights
+     */
+    public User(String name, String surname, String login, String userRights) {
         User.maxID++;
         this.id = maxID;
+        this.name = name;
+        this.surname = surname;
+        this.login = login;
+        this.userRights = userRights;
+    }
+
+    /**
+     * Constructor for reading users from file or string
+     * @param id
+     * @param name
+     * @param surname
+     * @param login
+     * @param userRights
+     */
+    public User(int id, String name, String surname, String login, String userRights) {
+        this.id = id;
         this.name = name;
         this.surname = surname;
         this.login = login;
@@ -23,6 +46,10 @@ public class User implements BaseModel {
         return id;
     }
 
+    /**
+     * Generates the string further used for writing to file
+     * @return string
+     */
     @Override
     public String StringForWritingToDB() {
         return Integer.toString(getId()) + "\t"
