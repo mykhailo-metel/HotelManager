@@ -11,12 +11,32 @@ public class DAOUser extends DaoAbstract {
         super(filename);
     }
 
+    public void add(User user){
+        if (containsLogin(user.getLogin())){
+            super.add(user);
+        }
+    }
+
+
+    /**
+     * Check if list contains user with specified login
+     * @param login - checked login
+     * @return true if contains
+     */
+    public boolean containsLogin(String login) {
+        boolean result = false;
+        if (list.stream().anyMatch(e->((User)e).getLogin().equals(login))){
+            result = true;
+        }
+        return result;
+    }
+
     /**
      * Parses user from a string.
      * @param   line tab-delimited string.
      * @return  user
      */
-    protected User parseLine(String line){
+    public User parseLine(String line){
         if(line.length()<3) return null;
 
         ArrayList<String> tempUser = new ArrayList<>();

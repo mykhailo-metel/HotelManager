@@ -1,7 +1,6 @@
 package DAO;
 
 import models.BaseModel;
-import models.User;
 
 import java.io.*;
 import java.util.ArrayList;
@@ -9,7 +8,7 @@ import java.util.List;
 import java.util.Scanner;
 
 public abstract  class DaoAbstract<E extends BaseModel> implements DAO<E> {
-    protected String CURRENT_DIR = System.getProperty("user.dir") + "/db/";
+    protected String CURRENT_DIR = System.getProperty("user.dir") + "\\db\\";
     protected String FILE_PATH;
     protected List<E> list = new ArrayList<>(0);
 
@@ -49,7 +48,9 @@ public abstract  class DaoAbstract<E extends BaseModel> implements DAO<E> {
             f.getParentFile().mkdirs();
             f.createNewFile();
             BufferedWriter writer = new BufferedWriter(new FileWriter(f));
-            list.stream().map(e->((BaseModel) e).StringForWritingToDB());
+            for (int i = 0; i < list.size(); i++) {
+                stringBuilder.append(list.get(i).StringForWritingToDB());
+            }
             writer.write(stringBuilder.toString());
             writer.flush();
             writer.close();
@@ -60,7 +61,7 @@ public abstract  class DaoAbstract<E extends BaseModel> implements DAO<E> {
     }
 
     /**
-     * Reads users list from the DB.
+     * Reads items list from the DB.
      * @return list of users from Users table
      */
     public List<E> loadFromDB() {
@@ -71,6 +72,11 @@ public abstract  class DaoAbstract<E extends BaseModel> implements DAO<E> {
         E tempItem;
 
         try{
+            if (!f.exists()){
+                if(f.createNewFile()) {
+                    System.out.println("File successfully created.");
+                };
+            }
             reader = new BufferedReader(new FileReader(f));
             while((line = reader.readLine()) != null){
                 tempItem = parseLine(line);
@@ -93,9 +99,11 @@ public abstract  class DaoAbstract<E extends BaseModel> implements DAO<E> {
     }
 
     @Override
-    public void create(E e){
-        list.add(e);
-        saveToDB();
+    public void add(E e){
+        if (!list.stream().anyMatch((E o) -> e.getId() == o.getId())) {
+            list.add(e);
+            saveToDB();
+        };
     }
 
     @Override

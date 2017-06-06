@@ -2,6 +2,7 @@ package models;
 
 
 public class User implements BaseModel {
+    private static int maxID = 0;
     private int id;
     private String name;
     private String surname;
@@ -9,7 +10,8 @@ public class User implements BaseModel {
     private String userRights;
 
     public User(int id, String name, String surname, String login, String userRights) {
-        this.id = id;
+        User.maxID++;
+        this.id = maxID;
         this.name = name;
         this.surname = surname;
         this.login = login;
