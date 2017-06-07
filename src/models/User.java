@@ -94,10 +94,10 @@ public class User implements BaseModel {
     @Override
     public String toString() {
         return "id:\t" + id +
-                "\nName:\t'" + name + '\'' +
-                "\nSurname:\t'" + surname + '\'' +
-                "\nLogin:\t'" + login + '\'' +
-                "\nuserRights:\t'" + userRights + '\'';
+                "\tName:\t'" + name + '\'' +
+                "\tSurname:\t'" + surname + '\'' +
+                "\tLogin:\t'" + login + '\'' +
+                "\tuserRights:\t'" + userRights + '\'';
     }
 
     @Override
