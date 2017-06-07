@@ -4,8 +4,11 @@ import models.Booking;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.function.Predicate;
+import java.util.stream.Collectors;
 
 public class DAOBooking extends DaoAbstract {
 
@@ -44,4 +47,20 @@ public class DAOBooking extends DaoAbstract {
         }
         return booking;
     }
+
+
+    /**
+     * Looks for all bookings of a room
+     * @param id - roomId
+     * @return - list of bookings satisfying the criteria
+     */
+    public List<Booking> findByRoomId(int id) {
+        List<Booking> tempList = new ArrayList<>(list);
+        return tempList.stream().filter( booking -> ((Booking) booking).getRoomId() == id).collect(Collectors.toList());
+    }
+
+//    public List<Booking> findByCondition(Predicate<Booking> p){
+//        List<Booking> tempList = new ArrayList<>(list);
+//        return tempList.stream().filter(p).findFirst().orElse(null);
+//    }
 }
