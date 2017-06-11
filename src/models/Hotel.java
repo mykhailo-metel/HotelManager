@@ -8,7 +8,7 @@ public class Hotel implements BaseModel {
 
 
     /**
-     * Constructor to be used during runtime
+     * Constructor to be used during runtime. Id generates automatically
      * @param name  - hotelname
      * @param city  - hotelcity
      */
@@ -27,6 +27,7 @@ public class Hotel implements BaseModel {
      */
     public Hotel(int id, String name, String city) {
         this.id = id;
+        if (id> maxID){maxID =id;}
         this.name = name;
         this.city = city;
     }

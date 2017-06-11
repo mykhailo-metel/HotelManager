@@ -12,7 +12,7 @@ public class testHotelsAndRooms {
         DAORoom daoRoom = new DAORoom("rooms.txt");
         DAOUser daoUser = new DAOUser("users.txt");
 
-        Session session = new Session(daoUser);
+        Session session = new Session();
         HotelAndRoomsServices hotelAndRoomsServices  = new HotelAndRoomsServices(daoHotel, daoRoom);
         //session.login();
 

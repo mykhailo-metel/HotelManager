@@ -9,4 +9,5 @@ public interface DAO<E extends BaseModel> {
     void delete(E e);
     E findByID(int id);
     List<E> getAll();
+    int getCount();
 }

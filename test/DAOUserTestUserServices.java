@@ -3,7 +3,7 @@ import DAO.DAOUser;
 import models.User;
 import org.junit.Test;
 
-public class DAOUserTest {
+public class DAOUserTestUserServices {
 
     @Test
     public void checkHowUserIsAddedToListAndCanBeAccessed() throws Exception {

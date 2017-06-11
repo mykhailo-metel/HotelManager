@@ -11,14 +11,14 @@ public class Main {
     private DAO.DaoAbstract<Room> roomDAO = new DAO.DAORoom("hotel.tsv");
 
     public void run(){
-        byte choise;
+        int choise;
         System.out.println(
                 "Главное меню" +
                 "\n1. Логин" +
                 "\n2. Регистрация" +
                 "\n0. Выход");
         do {
-            choise = Requester.requestChoise();
+            choise = Requester.requestInt();
             switch (choise) {
                 case 1:
                     //mainLogin.run();

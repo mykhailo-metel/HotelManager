@@ -29,6 +29,7 @@ public class Booking implements BaseModel {
             throw new IllegalArgumentException("No null field (in date) allowed");
         }
         this.id = id;
+        if (id> maxID){maxID = id;}
         this.roomId = roomId;
         this.userId = userId;
         this.dateBegin = dateBegin;

@@ -1,6 +1,6 @@
 import org.junit.Test;
 
-public class DAOHotelTest {
+public class DAOHotelTestUserServices {
 
     @Test
     public void userParseLine() throws Exception {

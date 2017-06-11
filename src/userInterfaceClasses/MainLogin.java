@@ -12,7 +12,7 @@ public class MainLogin {
                         "\n1. Админ" +
                         "\n2. Юзер" +
                         "\n0. Выход");
-        byte choise = Requester.requestChoise();
+        int choise = Requester.requestInt();
         switch (choise) {
             case 1:
 

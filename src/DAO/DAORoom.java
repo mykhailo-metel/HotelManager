@@ -37,14 +37,14 @@ public class DAORoom extends DaoAbstract{
 
         int id;
         int hotelID;
-        byte person;
+        int person;
         BigDecimal price;
 
         try{
             result = getListFromLins(line);
             id = Integer.parseInt(result.get(0));
             hotelID = Integer.parseInt(result.get(1));
-            person = Byte.parseByte(result.get(2));
+            person = Integer.parseInt(result.get(2));
             price = new BigDecimal(result.get(3));
             tempRoom = new Room(id, hotelID, person,price);
         }catch (Exception ex){

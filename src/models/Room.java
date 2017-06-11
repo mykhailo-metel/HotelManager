@@ -4,13 +4,23 @@ import java.math.BigDecimal;
 
 
 public class Room implements BaseModel {
+    static private int maxID = 0;
     private int id;
     private int hotelID;
-    private byte person;
+    private int person;
     private BigDecimal price;
 
-    public Room(int id,int hotelId, byte person, BigDecimal price) {
+    public Room(int id,int hotelId, int person, BigDecimal price) {
         this.id=id;
+        if (id> maxID){maxID = id;}
+        this.hotelID = hotelId;
+        this.person = person;
+        this.price = price;
+    }
+
+    public Room(int hotelId, int person, BigDecimal price) {
+        maxID++;
+        this.id=maxID;
         this.hotelID = hotelId;
         this.person = person;
         this.price = price;
@@ -20,7 +30,7 @@ public class Room implements BaseModel {
     public String StringForWritingToDB() {
         return Integer.toString(this.getId()) + "\t" +
                 Integer.toString(this.gethotelId()) + "\t" +
-                Byte.toString(this.getPerson()) + "\t" +
+                Integer.toString(this.getPerson()) + "\t" +
                 this.getPrice().toString()+"\n";
     }
 
@@ -51,11 +61,11 @@ public class Room implements BaseModel {
         return result;
     }
 
-    public byte getPerson() {
+    public int getPerson() {
         return person;
     }
 
-    public void setPerson(byte person) {
+    public void setPerson(int person) {
         this.person = person;
     }
 

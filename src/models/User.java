@@ -35,6 +35,7 @@ public class User implements BaseModel {
      */
     public User(int id, String name, String surname, String login, String userRights) {
         this.id = id;
+        if (id> maxID){maxID = id;}
         this.name = name;
         this.surname = surname;
         this.login = login;

@@ -3,9 +3,7 @@ package DAO;
 import models.BaseModel;
 
 import java.io.*;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Scanner;
+import java.util.*;
 
 public abstract  class DaoAbstract<E extends BaseModel> implements DAO<E> {
     protected String CURRENT_DIR = System.getProperty("user.dir") + "\\db\\";
@@ -43,6 +41,7 @@ public abstract  class DaoAbstract<E extends BaseModel> implements DAO<E> {
     protected void saveToDB() {
         StringBuilder stringBuilder = new StringBuilder();
 
+        Collections.sort(list, Comparator.comparingInt(BaseModel::getId));
         try{
             File f = new File(FILE_PATH);
             f.getParentFile().mkdirs();
@@ -121,6 +120,12 @@ public abstract  class DaoAbstract<E extends BaseModel> implements DAO<E> {
         saveToDB();
     }
 
+    @Override
+    public int getCount() {
+        if (list == null) return 0;
+        return list.size();
+    }
+
     protected abstract E parseLine(String line);
     /**
      * Parses String line and creates a List for creating an object.
@@ -137,4 +142,5 @@ public abstract  class DaoAbstract<E extends BaseModel> implements DAO<E> {
         }
         return result;
     }
+
 }

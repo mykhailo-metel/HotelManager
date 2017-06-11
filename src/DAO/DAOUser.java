@@ -12,11 +12,10 @@ public class DAOUser extends DaoAbstract {
     }
 
     public void add(User user){
-        if (containsLogin(user.getLogin())){
+        if (!containsLogin(user.getLogin())){
             super.add(user);
         }
     }
-
 
     /**
      * Check if list contains user with specified login
@@ -24,11 +23,8 @@ public class DAOUser extends DaoAbstract {
      * @return true if contains
      */
     public boolean containsLogin(String login) {
-        boolean result = false;
-        if (list.stream().anyMatch(e->((User)e).getLogin().equals(login))){
-            result = true;
-        }
-        return result;
+        if (login == null || login.length() == 0) return false;
+        return findByLogin(login) != null;
     }
 
     /**

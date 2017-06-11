@@ -11,7 +11,7 @@ import java.util.stream.Collectors;
 
 public class DAOBooking extends DaoAbstract {
 
-    DAOBooking(String path){
+    public DAOBooking(String path){
         super(path);
     }
 
@@ -58,8 +58,8 @@ public class DAOBooking extends DaoAbstract {
         return tempList.stream().filter( booking -> ((Booking) booking).getRoomId() == id).collect(Collectors.toList());
     }
 
-//    public List<Booking> findByCondition(Predicate<Booking> p){
-//        List<Booking> tempList = new ArrayList<>(list);
-//        return tempList.stream().filter(p).findFirst().orElse(null);
-//    }
+    public List<Booking> findByUserID(int id){
+        List<Booking> tempList = new ArrayList<>(list);
+        return tempList.stream().filter( booking -> ((Booking) booking).getUserId() == id).collect(Collectors.toList());
+    }
 }

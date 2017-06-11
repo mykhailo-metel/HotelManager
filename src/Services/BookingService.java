@@ -34,7 +34,7 @@ public class BookingService {
         Date dateBegin = Requester.requestDate();
         Date dateEnd = Requester.requestDate();
         Hotel hotel = Requester.select(hotelDAO);
-        Room room = Requester.selectRoom(hotel.getId(), hotelDAO, roomDAO);
+        Room room = Requester.selectRoom(hotel.getId(), roomDAO);
         if(checkBookingPossible(dateBegin, dateEnd, room.getId())) {
             if (Requester.requestConfirm(" сделать бронирование ")){
                 daoBooking.add(new Booking(room.getId(), session.getSelectedUser().getId(),dateBegin,dateEnd));
