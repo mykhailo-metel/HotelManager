@@ -7,3 +7,4 @@
 7	City3	HN3
 8	City4	HN4
 9	Kiev	HotelInThePark
+10	Kiev	KievInn

@@ -1,22 +1,26 @@
 package Services;
 
 
-import DAO.*;
+import DAO.DAO;
+import DAO.DAOBooking;
 import DAO.DAORoom;
-import models.BaseModel;
+import models.Booking;
 import models.Hotel;
 import models.Room;
 import userInterfaceClasses.Requester;
 
 import java.math.BigDecimal;
+import java.util.List;
 
 public class HotelAndRoomsServices {
+    private DAO<Booking> bookingDAO;
     private DAO<Hotel> daoHotel;
     private DAO<Room> daoRoom;
 
-    public HotelAndRoomsServices(DAO<Hotel> daoHotel, DAO<Room> daoRoom) {
+    public HotelAndRoomsServices(DAO<Hotel> daoHotel, DAO<Room> daoRoom, DAO<Booking> bookingDAO) {
         this.daoHotel = daoHotel;
         this.daoRoom = daoRoom;
+        this.bookingDAO = bookingDAO;
     }
 
     public void addNewHotelWithRooms(){
@@ -31,7 +35,7 @@ public class HotelAndRoomsServices {
             daoHotel.add(hotel);
             System.out.println("Отель " + hotel + " добавлен");
 
-            System.out.println("Добавить комнаты в отель \n1. Да\n 2. Нет \n");
+            System.out.println("Добавить комнаты в отель \n1. Да\n2. Нет \n");
             int choise = Requester.requestInt();
             if(choise != 1){return;}
             int hotelId = hotel.getId();
@@ -58,32 +62,53 @@ public class HotelAndRoomsServices {
         }
     }
 
-    public void editHotel(Hotel hotel){
+    public void editHotelName(){
+        try {
+            System.out.println("Изменение имени отеля");
+            Hotel hotel = Requester.select(daoHotel);
+            System.out.println("Введите новое название отеля");
+            hotel.setName(Requester.requestName());
+            daoHotel.update(hotel);
+            System.out.println("Имя отеля изменено");
+            System.out.println(hotel.toString());
+        } catch (RuntimeException e){
+            System.out.println("Ошибка при изменении имени отеля.");
+        }
+    }
 
+    public void deleteHotel(){
+        try {
+            System.out.println("Удаление отеля, всех его комнат и их бронирований");
+            Hotel hotel = Requester.select(daoHotel);
+            if(Requester.requestConfirm(" удаление отеля ")){
+                List<Integer> roomIdList = ((DAORoom)daoRoom).findRoomsByHotelId(hotel.getId());
+
+                if (!(roomIdList == null)) {
+                    for (int i = 0; i < roomIdList.size() ; i++) {
+                        Room room = (Room)((DAORoom)daoRoom).findByID(roomIdList.get(i));
+                        ((DAOBooking)bookingDAO).findByRoomId(room.getId()).forEach(((DAOBooking) bookingDAO)::delete);
+                        daoRoom.delete(room);}
+                    }
+                }
+            daoHotel.delete(hotel);
+            System.out.println("Отель удален");
+        } catch (RuntimeException e){
+            System.out.println("Ошибка при удалении отеля");
+        }
     }
 
     public void deleteRoom() {
-        Hotel hotel = selectHotel();
-        Room room = selectRoom(hotel);
-        System.out.println("Удалить комнату " + room + " ? 1. Да, 2. Нет");
-        if (Requester.requestInt() == 1) {daoRoom.delete(room);}
-    }
-
-    public Hotel selectHotel(){
-        BaseModel hotel = null;
-
-        daoHotel.getAll().forEach(System.out::println);
-        System.out.println("Введите айди отеля:");
         try{
-            hotel = daoHotel.findByID(Requester.requestInt());
-            if (hotel == null) {
-                throw new RuntimeException("не найден отель!");
-            }
-        } catch (RuntimeException e) {
-            System.out.println(e);
-            System.out.println("Невозможно найти отель с таким айди.");
+            Hotel hotel = Requester.select(daoHotel);
+            Room room = selectRoom(hotel);
+            System.out.println("Удалить комнату. Все бронирования будут отменены.\n" + room + "\n1. Да\n2. Нет");
+            if (Requester.requestInt() == 1) {
+                ((DAOBooking)bookingDAO).findByRoomId(room.getId()).forEach(((DAOBooking) bookingDAO)::delete);
+                daoRoom.delete(room);}
+        } catch (RuntimeException e ) {
+            System.out.println("Ошибка при удалении комнаты");
         }
-        return (Hotel) hotel;
+
     }
 
     public Room selectRoom(Hotel hotel) {
