@@ -27,7 +27,9 @@ public class BookingService {
     }
 
     public void makeBooking() {
+        System.out.println("Бронирование номера в отеле");
         if(session.getSelectedUser().getUserRights().equals("admin")){
+            System.out.println("Выберите пользователя, на которого ");
             Requester.select(userDAO);
         }
         String city = Requester.selectCity(hotelDAO);
