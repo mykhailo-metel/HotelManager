@@ -81,13 +81,14 @@ public class HotelAndRoomsServices {
             System.out.println("Удаление отеля, всех его комнат и их бронирований");
             Hotel hotel = Requester.select(daoHotel);
             if(Requester.requestConfirm(" удаление отеля ")){
-                List<Integer> roomIdList = ((DAORoom)daoRoom).findRoomsByHotelId(hotel.getId());
+                List<Integer> roomIdList = ((DAORoom)daoRoom).findRoomsIdByHotelId(hotel.getId());
 
                 if (!(roomIdList == null)) {
-                    for (int i = 0; i < roomIdList.size() ; i++) {
-                        Room room = (Room)((DAORoom)daoRoom).findByID(roomIdList.get(i));
-                        ((DAOBooking)bookingDAO).findByRoomId(room.getId()).forEach(((DAOBooking) bookingDAO)::delete);
-                        daoRoom.delete(room);}
+                    for (Integer aRoomIdList : roomIdList) {
+                        Room room = (Room) ((DAORoom) daoRoom).findByID(aRoomIdList);
+                        ((DAOBooking) bookingDAO).findByRoomId(room.getId()).forEach(((DAOBooking) bookingDAO)::delete);
+                        daoRoom.delete(room);
+                    }
                     }
                 }
             daoHotel.delete(hotel);
@@ -97,7 +98,7 @@ public class HotelAndRoomsServices {
         }
     }
 
-    public void deleteRoom() {
+    void deleteRoom() {
         try{
             Hotel hotel = Requester.select(daoHotel);
             Room room = selectRoom(hotel);
@@ -111,10 +112,10 @@ public class HotelAndRoomsServices {
 
     }
 
-    public Room selectRoom(Hotel hotel) {
+    private Room selectRoom(Hotel hotel) {
         Room room = null;
 
-        ((DAORoom)daoRoom).findRoomsByHotelId(hotel.getId()).forEach(System.out::println);
+        ((DAORoom)daoRoom).findRoomsIdByHotelId(hotel.getId()).forEach(System.out::println);
         System.out.println("Введите айди комнаты");
 
         try{

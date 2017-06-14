@@ -53,7 +53,14 @@ public class DAORoom extends DaoAbstract{
         return tempRoom;
     }
 
-    public List<Integer> findRoomsByHotelId(int hotelID) {
-        return hotelRoomMap.get(hotelID);
+    public List<Integer> findRoomsIdByHotelId(int hotelID) {
+        List<Integer> temp = new ArrayList<>(0);
+        for (int i = 0; i < list.size() ; i++) {
+            Room tempRoom = (Room)list.get(i);
+            if(tempRoom.gethotelId() == hotelID) {
+                temp.add(tempRoom.getId());
+            }
+        }
+        return temp;
     }
 }

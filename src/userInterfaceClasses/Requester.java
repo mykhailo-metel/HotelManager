@@ -162,7 +162,7 @@ public class Requester {
      */
     public static Room selectRoom(int hotelId, DAO<Room> roomDAO) {
         Room selectedRoom = null;
-        List<Integer> roomList = ((DAORoom)roomDAO).findRoomsByHotelId(hotelId);
+        List<Integer> roomList = ((DAORoom)roomDAO).findRoomsIdByHotelId(hotelId);
         roomList.forEach(System.out::println);
         System.out.println("Выберите номер в списке");
 

@@ -13,13 +13,6 @@ public class TestUserServices {
         Session session = new Session();
         UserServices userServices = new UserServices(userDAO, bookingDAO, session );
 
-        //userServices.login();
-        //System.out.println(session.getLoggedUser());
-        //userServices.registerUser();
-        //userServices.editUserData(userDAO.findByID(1));
-        //userServices.editSelectedUser();
-        userServices.deleteSelectedUser();
-        userServices.deleteSelectedUser();
     }
 
 }
