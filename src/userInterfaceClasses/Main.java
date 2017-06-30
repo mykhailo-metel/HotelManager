@@ -10,6 +10,11 @@ public class Main {
     private DAO.DaoAbstract<Hotel> hotelDAO = new DAO.DAOHotel("hotel.tsv");
     private DAO.DaoAbstract<Room> roomDAO = new DAO.DAORoom("hotel.tsv");
 
+    public static void main(String[] args) {
+        Main main = new Main();
+        main.run();
+    }
+
     public void run(){
         int choise;
         System.out.println(
